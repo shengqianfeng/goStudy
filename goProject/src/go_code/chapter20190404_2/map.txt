@@ -1,0 +1,23 @@
+1 map使用前一定要make
+2 map的key是不能重复的，如果重复了，则以最后的这个key-val为准
+3 map的value可以是相同的
+4 map的key-value是无序的
+5 make是内置函数，给map分配空间
+
+
+map排序：
+1 golang中没有一个专门的方法针对map的key进行排序
+2 golang的map默认是无序的，注意也不是按照添加的顺序存放的，你每次
+遍历，得到的输出可能不一样
+3 golang中map的排序，是先将key进行排序，然后根据key值遍历输出即可
+
+ 
+ map使用细节：
+ 1 map是引用类型，遵守引用类型的传递机制，在一个函数接收一个map，修改后
+ 会直接修改原来的map
+ 
+ 2 map的容量达到后，再想map增加元素，会自动扩容，并不会发生panic，也就是说map能
+ 动态增长 
+
+ 3 map的value也经常使用到struct，更适合管理复杂的数据（比map更好）
+

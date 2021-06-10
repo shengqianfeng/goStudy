@@ -1,0 +1,66 @@
+{{template "comm"}}
+<!--中间内容区域-->
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">Roles</h1>
+    </div>
+    <div class="main-content">
+        <div class="btn-toolbar list-toolbar">
+            <button class="btn btn-primary" onclick="toAddRole();"><i class="fa fa-plus"></i> New Role</button>
+            <div class="btn-group">
+            </div>
+        </div>
+        <table class="table">
+            <!-- 定义表头 -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>角色名称</th>
+                    <th style="width: 3.5em;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{range .roles}}
+            <tr>
+                <td>{{.RoleId}}</td>
+                <td>{{.RoleName}}</td>
+                <td>
+                    <a href="/role/toUpdateRole?id={{.RoleId}}"><i class="fa fa-pencil" title="编辑角色"></i></a>
+                    <a href="#" role="button" onclick="deleteRole({{.RoleId}});"><i class="fa fa-trash-o" title="删除角色"></i></a>
+                    <a href="/role/toSetPermission?id={{.RoleId}}" role="button" ><span class="glyphicon glyphicon-asterisk" title="权限配置"></span></a>
+                </td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+        <ul class="pagination">
+            {{if gt .page.PageIndex  1}}
+                <li><a href="#">首页</a></li>
+            {{end}}
+                <!-- 自定义模板函数：
+                     1 将pageIndex传递进showPrePage函数中获取上一页的页码
+                     2  在后台定义视图函数showPrePage
+                     -->
+                <li><a href="/role/roleList?pageIndex={{.page.PageIndex | ShowPrePage}}">上一页</a></li>
+                <li><a href="/role/roleList?pageIndex={{.page.PageIndex | ShowNextPage}}">下一页</a></li>
+            {{if lt .page.PageIndex  .page.PageCount}}
+                <li><a href="#">尾页</a></li>
+            {{end}}
+
+        </ul>
+    </div>
+</div>
+<script>
+   function toAddRole(){
+       location.href="/role/toAddRole"
+   }
+
+
+   function deleteRole(id){
+       if(confirm("是否确认删除？")){
+           location.href="/role/deleteRole?id="+id;
+       }
+   }
+
+
+</script>

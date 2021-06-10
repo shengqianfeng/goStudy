@@ -1,0 +1,43 @@
+{{template "comm"}}
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">Add Menu</h1>
+    </div>
+    <div class="main-content">
+        <div class="row">
+            <div class="col-md-4">
+                <br>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active in" id="home">
+                        <form id="tab" action="/menu/addMenu" method="post" >
+                            <div class="form-group">
+                                <label>菜单名称</label>
+                                <input type="text" value="{{.menuname}}" name="menuname" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>父菜单ID</label>
+                                <input type="text" value="{{.parentId}}" name="parentId" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Url</label>
+                                <input type="text" value="{{.url}}" name="url" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>序号</label>
+                                <input type="password" value="{{.sort}}" name="sort" class="form-control">
+                            </div>
+
+                            <div class="btn-toolbar list-toolbar">
+                                <input class="btn btn-primary"  type="submit" value="Save"/>
+                                <input class="btn btn-primary"  type="button" value="back" onclick="location.href='/menu/menuList'" />
+                            </div>
+                        </form>
+                        <span>{{.errorMsg}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

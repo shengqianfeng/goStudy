@@ -1,0 +1,28 @@
+反射基本介绍：
+1 反射可以在运行时获取变量的各种信息，比如变量的类型(type)，类别(kind)
+2 如果是结构体变量，还可以获取到结构体本身的信息（包括结构体字段和方法）
+3 通过反射，可以修改变量值，可以调用关联的方法
+4 使用反射，需要引入reflect包
+5 反射中变量、interface{}和reflect.Value是可以相互转换的
+
+
+
+
+Type是类型，Kind是类别，两者可能相同也可不同
+比如：var num int=10 num的Type是int，Kind也是int
+比如：var stu Student stu的Type是package.Student,Kind是struct
+
+
+相互转换：
+变量  <------> interface{}<-------->reflect.Value
+
+
+通过反射来修改变量
+
+
+
+
+
+
+
+

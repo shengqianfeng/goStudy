@@ -1,0 +1,57 @@
+{{template "comm"}}
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">Add User</h1>
+    </div>
+    <div class="main-content">
+
+        <div class="row">
+            <div class="col-md-4">
+                <br>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active in" id="home">
+                        <form id="tab" action="/user/addUser" method="post" >
+                            <div class="form-group">
+                                <label>Role:</label>
+                                <select name="roleId" id="roleId" class="sel_opt" style="height: 30px">
+                                    {{range .roles}}
+                                        <option   value="{{.RoleId}}" >{{.RoleName}}</option>
+                                    {{end}}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" value="{{.username}}" name="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Sex</label><br>
+                                <input type="radio" value="0" name="sex" class="btn-group">男
+                                <input type="radio" value="1" name="sex"  class="btn-group">女
+                            </div>
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="text" value="{{.age}}" name="age" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" value="{{.password}}" name="password" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>enter password again</label>
+                                <input type="password" value="{{.nextPassword}}" name="nextPassword" class="form-control">
+                            </div>
+                            <div class="btn-toolbar list-toolbar">
+                                <input class="btn btn-primary"  type="submit" value="Save"/>
+                                <input class="btn btn-primary"  type="button" value="back" onclick="location.href='/user/userList'" />
+                            </div>
+                        </form>
+                        <span>{{.errorMsg}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

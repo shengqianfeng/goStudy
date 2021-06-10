@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/src/github.com/Unknwon/goconfig" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/beego/i18n" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/go-delve/delve" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/gomodule/redigo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/github.com/mdempsky/gocode" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/golang.org/x/lint" vcs="Git" />
+  </component>
+</project>

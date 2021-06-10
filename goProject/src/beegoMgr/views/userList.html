@@ -1,0 +1,79 @@
+{{template "comm"}}
+<!--中间内容区域-->
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">Users</h1>
+    </div>
+    <div class="main-content">
+        <div class="btn-toolbar list-toolbar">
+            <button class="btn btn-primary" onclick="toAddUser();"><i class="fa fa-plus"></i> New User</button>
+            <div class="btn-group">
+            </div>
+        </div>
+        <table class="table">
+            <!-- 定义表头 -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th style="width: 3.5em;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{range .users}}
+            <tr>
+                <td>{{.Id}}</td>
+                <td>{{.Username}}</td>
+                <td>
+                {{if eq .Sex  "0"}}
+                    男
+                {{else}}
+                    女
+                {{end}}
+                </td>
+                <td>
+                    {{.Age}}岁
+                </td>
+                <td>
+                    <a href="/user/toUpdateUser?id={{.Id}}"><i class="fa fa-pencil"></i></a>
+                    <a href="#" role="button" onclick="deleteUser({{.Id}});"><i class="fa fa-trash-o"></i></a>
+                </td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+        <ul class="pagination">
+
+
+            {{if gt .page.PageIndex  1}}
+                <li><a href="#">首页</a></li>
+            {{end}}
+                <!-- 自定义模板函数：
+                     1 将pageIndex传递进showPrePage函数中获取上一页的页码
+                     2  在后台定义视图函数showPrePage
+                     -->
+                <li><a href="/user/userList?pageIndex={{.page.PageIndex | ShowPrePage}}">上一页</a></li>
+                <li><a href="/user/userList?pageIndex={{.page.PageIndex | ShowNextPage}}">下一页</a></li>
+            {{if lt .page.PageIndex  .page.PageCount}}
+                <li><a href="#">尾页</a></li>
+            {{end}}
+
+        </ul>
+    </div>
+</div>
+<script>
+   function toAddUser(){
+       location.href="/user/toAddUser"
+   }
+
+
+   function deleteUser(id){
+       if(confirm("是否确认删除？")){
+           location.href="/user/deleteUser?id="+id;
+       }
+   }
+
+
+</script>

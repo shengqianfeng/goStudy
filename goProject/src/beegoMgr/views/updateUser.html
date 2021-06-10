@@ -1,0 +1,74 @@
+{{template "comm"}}
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">Update User</h1>
+    </div>
+    <div class="main-content">
+        <div class="row">
+            <div class="col-md-4">
+                <br>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active in" id="home">
+                        <form id="tab" action="/user/updateUser" method="post" >
+                            {{with .user}}
+                                <input type="hidden" name="id" value="{{.Id}}"/>
+                                {{with .Role}}
+                                        <input type="hidden" id="rId" value="{{.RoleId}}"/>
+                                {{end}}
+                            <div class="form-group">
+                                <label>Role:</label>
+                                <select name="roleId" id="roleId" class="sel_opt" style="height: 30px">
+                                {{range $.roles}}
+                                    <option   value="{{.RoleId}}" >{{.RoleName}}</option>
+                                {{end}}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" value="{{.Username}}" name="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Sex</label><br>
+                                {{if eq .Sex "0"}}
+                                    <input type="radio" value="0" name="sex" checked class="btn-group">
+                                 {{else}}
+                                    <input type="radio" value="0" name="sex"  class="btn-group">
+                                {{end}}
+                                男
+                                {{if eq .Sex "1"}}
+                                    <input type="radio" value="1" name="sex" checked  class="btn-group">
+                                {{else}}
+                                    <input type="radio" value="1" name="sex"  class="btn-group">
+                                {{end}}
+                                女
+                            </div>
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="text" value="{{.Age}}" name="age" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" value="{{.Password}}" name="password" class="form-control">
+                            </div>
+
+                            <div class="btn-toolbar list-toolbar">
+                                <input class="btn btn-primary"  type="submit" value="Save"/>
+                                <input class="btn btn-primary"  type="button" value="back" onclick="location.href='/user/userList'" />
+                            </div>
+                                    {{end}}
+                        </form>
+                        <span>{{.errorMsg}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        var rId = $("#rId").val();
+        $("#roleId").val(rId);
+    });
+
+</script>
+

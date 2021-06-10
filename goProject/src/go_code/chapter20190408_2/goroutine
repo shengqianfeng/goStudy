@@ -1,0 +1,77 @@
+go协程和go主线程：
+1 go主线程（有的程序员称为线程/也可以理解为进程）；一个go主线程上，可以启
+很多协程，你可以这样理解，协程是轻量级的线程（编译器做了优化）
+
+2 go协程的特点
+    -有独立的栈空间
+    -共享程序堆空间
+    -调度由用户控制
+    -协程是轻量级的线程
+
+
+1 主线程是一个物理线程，直接作用在CPU上，是重量级的，非常耗费CPU资源
+2 协程是从主线程开启的，是轻量级线程，是逻辑态，对资源的消耗相对小。
+3 go的协程机制是重要的特点，可以轻松开启上万个协程。其它编程语言的并发机制是一般基于线程的，
+开启过多的线程，资源耗费大，这里就是突显了go在并发上的优势了
+
+
+
+goroutine的调度模型---MPG模式
+M：操作系统的主线程（是物理线程）
+P：协程执行需要的上下文环境（协程准备运行当时的依赖的资源以及当时系统的状态）
+G：协程
+
+
+
+channel管道的基本介绍：
+1 channel的本质就是一个数据结构-队列
+2 数据是先进先出FIFO
+3 线程安全，多goroutine访问时，不需要加锁，就是说channel本身就是线程安全的
+4 channel是有类型的，一个string的channel只能存放string类型数据
+
+channel定义/声明
+var 变量名 chan 数据类型
+举例：
+var intChan chan intChan
+var mapChan chan map[int]string
+var perChan chan Person
+var perChan2 chan *Person
+
+channel使用的注意事项：
+1 channel是引用类型
+2 channel必须初始化才能写入数据，即make后才能使用
+3 管道是有类型的，intChan只能写入整数int
+4 channel数据放满后就不能再放了
+5 如果从channel取出数据后，可以继续放
+6 在没有使用协程的情况下，如果channel数据取完了，再取就会报deadlock
+
+
+
+channel的关闭：
+    使用内置函数close可以关闭channel，当channel关闭后，就不能再向channel写数据了
+但是仍然可以从channel中读取数据。
+
+
+channel的遍历：
+channel支持for-range方式遍历，注意两个细节：
+1 在遍历时，如果channel没有关闭，则会出现deadlock的错误
+2 在遍历时，如果channel已经关闭，则会正常遍历数据，遍历完后，就会退出遍历
+
+====================channel使用细节和注意事项================================
+1 channel可以声明为只读或者只写性质
+
+2 使用select可以解决从管道取数据的阻塞问题
+原因：使用for-range从管道中遍历数据需要事先close这个管道，那么不想close管道也想获取管道的数据怎么办呢？
+
+3 goroutine中使用revover，解决协程中出现panic，导致程序崩溃问题
+如果我们开启一个协程，但是这个协程出现panic，如果我们没有捕获这个panic，就会造成整个
+程序崩溃，这是我们可以在goroutine中使用revover来捕获panic进行处理，不影响整个程序。
+
+
+
+
+
+
+
+
+

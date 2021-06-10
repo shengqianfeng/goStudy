@@ -1,0 +1,75 @@
+{{template "comm"}}
+<!--中间内容区域-->
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">Menus</h1>
+    </div>
+    <div class="main-content">
+        <div class="btn-toolbar list-toolbar">
+            <button class="btn btn-primary" onclick="toAddMenu();"><i class="fa fa-plus"></i> New Menu</button>
+            <div class="btn-group">
+            </div>
+        </div>
+        <table class="table">
+            <!-- 定义表头 -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>菜单名称</th>
+                    <th>路径</th>
+                    <th>父菜单ID</th>
+                    <th>序号</th>
+                    <th style="width: 3.5em;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{range .menus}}
+            <tr>
+                <td>{{.Id}}</td>
+                <td>{{.MenuName}}</td>
+                <td>{{.Url}}</td>
+                <td>{{.ParentId}}</td>
+                <td>{{.Sort}}</td>
+                <td>
+                    <a href="/menu/toUpdateMenu?id={{.Id}}"><i class="fa fa-pencil"></i></a>
+                    {{if ne .ParentId -1}}
+                         <a href="#" role="button" onclick="deleteMenu({{.Id}});"><i class="fa fa-trash-o"></i></a>
+                    {{end}}
+                </td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+        <ul class="pagination">
+
+
+            {{if gt .page.PageIndex  1}}
+                <li><a href="#">首页</a></li>
+            {{end}}
+                <!-- 自定义模板函数：
+                     1 将pageIndex传递进showPrePage函数中获取上一页的页码
+                     2  在后台定义视图函数showPrePage
+                     -->
+                <li><a href="/menu/menuList?pageIndex={{.page.PageIndex | ShowPrePage}}">上一页</a></li>
+                <li><a href="/menu/menuList?pageIndex={{.page.PageIndex | ShowNextPage}}">下一页</a></li>
+            {{if lt .page.PageIndex  .page.PageCount}}
+                <li><a href="#">尾页</a></li>
+            {{end}}
+
+        </ul>
+    </div>
+</div>
+<script>
+   function toAddMenu(){
+       location.href="/menu/toAddMenu"
+   }
+
+
+   function deleteMenu(id){
+       if(confirm("是否确认删除？")){
+           location.href="/menu/deleteMenu?id="+id;
+       }
+   }
+
+
+</script>
